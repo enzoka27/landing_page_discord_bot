@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRINITY — Discord Music Bot</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="cur-head" id="curHead">
+  <div class="cur-head-line"></div>
+  <div class="cur-head-body"></div>
+  <div class="cur-head-line-bottom"></div>
+</div>
+<header>
+  <a href="#" style="text-decoration:none;"><div class="logo">TRINITY</div></a>
+  <nav>
+    <a href="#commands">COMANDOS</a>
+    <a href="#demo">DEMO</a>
+    <a href="#install">INSTALL</a>
+    <a href="#about">SOBRE</a>
+    <a href="https://github.com/enzoka27/discord_bot" target="_blank" class="nav-badge">GITHUB ↗</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="nav-badge" style="background:var(--cyan);color:var(--black);">+ ADICIONAR</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow">DISCORD BOT // v1.0</div>
+    <h1 class="hero-title"><span>TRINITY</span></h1>
+    <div class="hero-subtitle">◄◄ REW · ► PLAY · ■ STOP ►► FF</div>
+    <p class="hero-desc">
+      Um bot de música para Discord construído do zero em Node.js.
+      Suporte a YouTube, Spotify e busca por nome.
+      Controles completos de fila, skip, pausa e histórico.
+    </p>
+    <div class="hero-actions">
+      <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary">▶ ADICIONAR AO SERVER</a>
+      <a href="#commands" class="btn-secondary">▼ VER COMANDOS</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <!-- CD -->
+    <div class="cd-wrapper">
+      <div class="cd">
+        <div class="cd-label">
+          <div class="cd-label-title">TRINITY</div>
+          <div class="cd-label-sub">DISCORD · NODE.JS</div>
+          <div class="cd-label-sub">▶ MUSIC BOT</div>
+        </div>
+        <div class="cd-hole">TRN</div>
+      </div>
+    </div>
+
+    <div class="cassette">
+      <div class="cassette-label-strip">
+        <div class="cassette-name">TRINITY</div>
+        <div class="waveform" id="waveform"></div>
+        <div class="cassette-side">SIDE A</div>
+      </div>
+      <div class="cassette-window">
+        <div class="spool"></div>
+        <div class="spool" style="animation-direction: reverse;"></div>
+      </div>
+      <div class="cassette-bottom">
+        <div class="cassette-notch"></div>
+        <div class="cassette-notch"></div>
+        <div class="cassette-notch"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="commands">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <div>
+      <div class="section-title">LISTA DE <em>COMANDOS</em></div>
+    </div>
+  </div>
+
+  <div class="commands-grid">
+
+    <div class="cmd-card">
+      <div class="cmd-name">/play</div>
+      <div class="cmd-desc">Toca uma música por URL do YouTube ou nome da faixa (busca automática via YouTube Data API v3).</div>
+      <span class="cmd-tag tag-url">YouTube URL</span>
+      <span class="cmd-tag tag-search">Busca por nome</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/skip</div>
+      <div class="cmd-desc">Pula a música atual e passa para a próxima na fila automaticamente. Se não houver próxima, o bot para.</div>
+      <span class="cmd-tag tag-ctrl">Controle de fila</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/previous</div>
+      <div class="cmd-desc">Volta para a última música tocada. Funciona mesmo após /stop graças ao estado persistente salvo em state.js.</div>
+      <span class="cmd-tag tag-ctrl">Histórico</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/pause</div>
+      <div class="cmd-desc">Pausa a reprodução atual sem sair do canal de voz. O estado da fila é preservado.</div>
+      <span class="cmd-tag tag-ctrl">Controle</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/resume</div>
+      <div class="cmd-desc">Retoma a música pausada de onde parou. Só funciona se o bot estiver em estado de pausa.</div>
+      <span class="cmd-tag tag-ctrl">Controle</span>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-name">/stop</div>
+      <div class="cmd-desc">Para a reprodução, limpa a fila e faz o bot sair do canal de voz. A última música fica salva no estado.</div>
+      <span class="cmd-tag tag-ctrl">Controle</span>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="demo">
+  <div class="section-header">
+    <div class="section-number">02</div>
+    <div>
+      <div class="section-title">BOT EM <em>AÇÃO</em></div>
+    </div>
+  </div>
+
+  <div class="demo-terminal">
+    <div class="terminal-bar">
+      <div class="terminal-dots">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="terminal-title"># geral — trinity-bot-demo</div>
+    </div>
+    <div class="terminal-body">
+
+      <div class="chat-msg">
+        <div class="avatar avatar-user">E</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:14</div>
+          <div class="msg-text msg-command">/play Daft Punk — Get Lucky</div>
+        </div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="avatar avatar-bot">T</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:14</div>
+          <div class="msg-text">
+            <div class="msg-embed">
+              <div class="embed-title">▶ Tocando agora</div>
+              <div class="embed-text"><strong style="color:#f0ede8;">Daft Punk — Get Lucky (feat. Pharrell Williams)</strong></div>
+              <div class="embed-text" style="margin-top:4px;">Canal: 🎧 geral · Duração: 6:09</div>
+              <div class="embed-bar">
+                <div class="progress-track"><div class="progress-fill"></div></div>
+                <div class="progress-time">2:18 / 6:09</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="avatar avatar-user">E</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:17</div>
+          <div class="msg-text msg-command">/skip</div>
+        </div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="avatar avatar-bot">T</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:17</div>
+          <div class="msg-text">
+            <div class="msg-embed">
+              <div class="embed-title">⏭ Pulado · Fila vazia</div>
+              <div class="embed-text">Nenhuma música na fila. Use /play para adicionar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="avatar avatar-user">E</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:18</div>
+          <div class="msg-text msg-command">/previous</div>
+        </div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="avatar avatar-bot">T</div>
+        <div class="msg-content">
+          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:18</div>
+          <div class="msg-text">
+            <div class="msg-embed" style="border-color: var(--magenta);">
+              <div class="embed-title" style="color: var(--magenta);">◄ Voltando para última música</div>
+              <div class="embed-text"><strong style="color:#f0ede8;">Daft Punk — Get Lucky (feat. Pharrell Williams)</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="install">
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <div>
+      <div class="section-title">COMO <em>INSTALAR</em></div>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--cyan-dark);padding:1.5rem 2rem;margin-bottom:3rem;max-width:720px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'VT323',monospace;font-size:1.3rem;color:var(--cyan);letter-spacing:0.1em;margin-bottom:0.3rem;">▶ ADICIONAR DIRETO AO SEU SERVIDOR</div>
+      <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Clique no botão para adicionar o Trinity ao seu servidor Discord com as permissões necessárias já configuradas.</div>
+    </div>
+    <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">+ ADICIONAR AO DISCORD</a>
+  </div>
+
+  <div style="font-family:'VT323',monospace;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-bottom:2rem;">// OU RODE LOCALMENTE</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">CLONE O REPOSITÓRIO</div>
+        <div class="step-desc">Faça o clone do projeto e entre na pasta.</div>
+        <div class="code-block">git clone https://github.com/enzoka27/discord_bot && cd discord_bot</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">INSTALE AS DEPENDÊNCIAS</div>
+        <div class="step-desc">Node.js 18+ requerido. Instala discord.js, distube, yt-dlp e demais pacotes.</div>
+        <div class="code-block">npm install</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">REGISTRE OS SLASH COMMANDS</div>
+        <div class="step-desc">Deploya os comandos para o Discord. Só precisa rodar uma vez (ou quando adicionar novos comandos).</div>
+        <div class="code-block">node src/deploy-commands.js</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">INICIE O BOT</div>
+        <div class="step-desc">O bot vai conectar ao Discord e ficar pronto para receber comandos no seu servidor.</div>
+        <div class="code-block">node src/index.js</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <div>
+      <div class="section-title">SOBRE O <em>PROJETO</em></div>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        <strong>Trinity</strong> é um bot de música para Discord construído do zero em Node.js,
+        desenvolvido com foco em aprendizado — cada linha de código entendida antes de ser escrita.
+      </p>
+      <p>
+        O projeto passou por várias evoluções técnicas: de <strong>ytdl-core</strong> para <strong>play-dl</strong>
+        e finalmente para <strong>DisTube + yt-dlp</strong>, a solução estável para autenticação com o YouTube.
+      </p>
+      <p>
+        Suporte a YouTube (URL e busca via YouTube Data API v3).
+        Arquitetura orientada a eventos com discord.js v14 e carregamento automático de comandos por subpastas.
+      </p>
+      <div class="tech-stack">
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">discord.js v14</span>
+        <span class="tech-pill">DisTube v5</span>
+        <span class="tech-pill">yt-dlp</span>
+        <span class="tech-pill">ffmpeg-static</span>
+        <span class="tech-pill">opusscript</span>
+        <span class="tech-pill">axios</span>
+        <span class="tech-pill">dotenv</span>
+      </div>
+    </div>
+
+    <div class="stats-panel">
+      <div class="stat-box">
+        <div class="stat-num">6</div>
+        <div class="stat-label">COMANDOS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">FONTES</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">OPEN SOURCE</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">JS</div>
+        <div class="stat-label">LINGUAGEM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">TRINITY</div>
+  <div class="footer-text">
+    Feito por <a href="https://github.com/enzoka27" target="_blank">enzoka27</a> ·
+    <a href="https://github.com/enzoka27/discord_bot" target="_blank">Ver no GitHub ↗</a>
+  </div>
+  <div class="footer-text">MIT LICENSE · 2024</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
