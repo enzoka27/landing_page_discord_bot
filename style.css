@@ -876,71 +876,86 @@ nav { display: none; }
 footer { flex-direction: column; gap: 1rem; text-align: center; }
 }
 
-/* ===== CURSOR TAPE HEAD ===== */
+/* ===== CURSOR ===== */
 *, *::before, *::after { cursor: none; }
 input, textarea, select { cursor: text; }
 
-.cur-head {
+#cur-dot {
   position: fixed;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.cur-head-line {
-  width: 1px;
-  height: 18px;
-  background: linear-gradient(to bottom, transparent, var(--cyan), transparent);
-  animation: head-pulse 1.4s ease-in-out infinite;
-}
-
-.cur-head-body {
-  width: 9px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   background: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan), 0 0 2px var(--white);
-  animation: head-pulse 1.4s ease-in-out infinite;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, opacity 0.2s;
 }
 
-.cur-head-line-bottom {
-  width: 1px;
-  height: 18px;
-  background: linear-gradient(to top, transparent, var(--cyan), transparent);
-  animation: head-pulse 1.4s ease-in-out infinite;
+#cur-arc {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
 }
 
-@keyframes head-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
+#cur-arc svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: arc-spin 4s linear infinite;
 }
 
-/* hover: head aquece, vira magenta */
-.cur-head.on-link .cur-head-body {
-  background: var(--magenta);
-  box-shadow: 0 0 12px var(--magenta), 0 0 3px var(--white);
-  width: 14px;
-}
-.cur-head.on-link .cur-head-line,
-.cur-head.on-link .cur-head-line-bottom {
-  background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
+@keyframes arc-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* click: comprime como pressionando play */
-.cur-head.clicking .cur-head-line,
-.cur-head.clicking .cur-head-line-bottom {
-  height: 8px;
-}
-.cur-head.clicking .cur-head-body {
-  width: 12px;
-  box-shadow: 0 0 18px var(--cyan), 0 0 4px var(--white);
+#cur-arc .arc-ring {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  /* circunferência de r=14: ~87.96 — gap de ~20px (~60°) */
+  stroke-dasharray: 68 20;
+  transition: stroke-dasharray 0.35s cubic-bezier(.23,1,.32,1),
+              stroke 0.2s,
+              r 0.35s cubic-bezier(.23,1,.32,1);
+  opacity: 0.7;
+  transform-origin: center;
 }
 
-.cur-head-line,
-.cur-head-body,
-.cur-head-line-bottom {
-  transition: width 0.15s, height 0.15s, background 0.2s, box-shadow 0.2s;
+#cur-arc.on-link .arc-ring {
+  stroke-dasharray: 200 0; /* fecha o gap */
+  stroke: var(--magenta);
+  opacity: 1;
+}
+
+#cur-arc .arc-label {
+  font-family: 'VT323', monospace;
+  font-size: 7px;
+  fill: var(--magenta);
+  text-anchor: middle;
+  dominant-baseline: central;
+  opacity: 0;
+  transition: opacity 0.2s;
+  letter-spacing: 0.08em;
+}
+
+#cur-arc.on-link .arc-label {
+  opacity: 1;
+}
+
+#cur-arc.on-link svg {
+  animation: arc-spin 1.2s linear infinite;
+}
+
+#cur-arc.clicking svg {
+  animation: arc-spin 0.3s linear infinite;
+}
+#cur-arc.clicking .arc-ring {
+  stroke-dasharray: 200 0;
+  stroke: var(--white);
 }

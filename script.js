@@ -10,22 +10,47 @@ heights.forEach((h, i) => {
   waveform.appendChild(bar);
 });
 
-// cursor tape head
-const head = document.getElementById('curHead');
+/* ===== CURSOR ===== */
+const curDot  = document.getElementById('cur-dot');
+const curArc  = document.getElementById('cur-arc');
+const arcLbl  = document.getElementById('arcLabel');
+
+let mx = -200, my = -200;
+let rx = -200, ry = -200;
 
 document.addEventListener('mousemove', e => {
-  head.style.left = e.clientX + 'px';
-  head.style.top  = e.clientY + 'px';
+  mx = e.clientX; my = e.clientY;
+  curDot.style.left = mx + 'px';
+  curDot.style.top  = my + 'px';
 });
 
-const interactives = document.querySelectorAll('a, button, .cmd-card, .tech-pill');
-interactives.forEach(el => {
-  el.addEventListener('mouseenter', () => head.classList.add('on-link'));
-  el.addEventListener('mouseleave', () => head.classList.remove('on-link'));
+(function loopArc() {
+  rx += (mx - rx) * 0.11;
+  ry += (my - ry) * 0.11;
+  curArc.style.left = rx + 'px';
+  curArc.style.top  = ry + 'px';
+  requestAnimationFrame(loopArc);
+})();
+
+document.querySelectorAll('a, button, .cmd-item, .pill, .tech-pill').forEach(el => {
+  const label = el.dataset.cursor || '';
+  el.addEventListener('mouseenter', () => {
+    arcLbl.textContent = label;
+    curArc.classList.add('on-link');
+  });
+  el.addEventListener('mouseleave', () => {
+    curArc.classList.remove('on-link');
+  });
 });
 
-document.addEventListener('mousedown', () => head.classList.add('clicking'));
-document.addEventListener('mouseup',   () => head.classList.remove('clicking'));
+document.addEventListener('mousedown', () => curArc.classList.add('clicking'));
+document.addEventListener('mouseup',   () => curArc.classList.remove('clicking'));
 
-document.addEventListener('mouseleave', () => head.style.opacity = '0');
-document.addEventListener('mouseenter', () => head.style.opacity = '1');
+document.addEventListener('mouseleave', () => {
+  curDot.style.opacity = '0';
+  curArc.style.opacity = '0';
+});
+document.addEventListener('mouseenter', () => {
+  curDot.style.opacity = '1';
+  curArc.style.opacity = '1';
+});
