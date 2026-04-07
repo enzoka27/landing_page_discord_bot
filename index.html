@@ -4,350 +4,434 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TRINITY — Discord Music Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="cur-dot"></div>
+
+<!-- CRT effects -->
+<div class="crt-scanlines"></div>
+<div class="crt-corners"></div>
+
+<!-- floating particles -->
+<div id="particles"></div>
+
+<!-- custom cursor -->
+<div id="cur-dot"></div>
 <div id="cur-arc">
-  <svg viewBox="-18 -18 36 36">
-    <circle class="arc-ring" cx="0" cy="0" r="14"/>
-    <text class="arc-label" x="0" y="0" id="arcLabel"></text>
-  </svg>
+  <svg viewBox="-18 -18 36 36"><circle class="arc-ring" cx="0" cy="0" r="14"/></svg>
 </div>
+
 <header>
-  <a href="#" style="text-decoration:none;"><div class="logo">TRINITY</div></a>
-  <nav>
-    <a href="#commands">COMANDOS</a>
-    <a href="#demo">DEMO</a>
-    <a href="#install">INSTALL</a>
-    <a href="#about">SOBRE</a>
-    <a href="https://github.com/enzoka27/discord_bot" target="_blank" class="nav-badge">GITHUB ↗</a>
-    <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="nav-badge" style="background:var(--cyan);color:var(--black);">+ ADICIONAR</a>
-  </nav>
+  <div class="header-inner">
+    <div class="logo"><span>TRIN</span><span class="logo-accent">ITY</span></div>
+    <nav>
+      <a href="#commands">COMANDOS</a>
+      <a href="#demo">DEMO</a>
+      <a href="#install">INSTALL</a>
+      <a href="#about">SOBRE</a>
+      <div class="nav-actions">
+        <a href="https://github.com/enzoka27/discord_bot" target="_blank" class="nav-btn nav-ghost">GitHub</a>
+        <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="nav-btn nav-cta">+ ADICIONAR</a>
+      </div>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow glow-cyan"></div>
+  <div class="hero-glow glow-magenta"></div>
 
-  <div class="hero-text">
-    <div class="hero-eyebrow">DISCORD BOT // v1.0</div>
-    <h1 class="hero-title"><span>TRINITY</span></h1>
-    <div class="hero-subtitle">◄◄ REW · ► PLAY · ■ STOP ►► FF</div>
-    <p class="hero-desc">
-      Um bot de música para Discord construído do zero em Node.js.
-      Suporte a YouTube, Spotify e busca por nome.
-      Controles completos de fila, skip, pausa e histórico.
-    </p>
-    <div class="hero-actions">
-      <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary">▶ ADICIONAR AO SERVER</a>
-      <a href="#commands" class="btn-secondary">▼ VER COMANDOS</a>
-    </div>
-  </div>
-
-  <div class="hero-visual">
-    <!-- CD -->
-    <div class="cd-wrapper">
-      <div class="cd">
-        <div class="cd-label">
-          <div class="cd-label-title">TRINITY</div>
-          <div class="cd-label-sub">DISCORD · NODE.JS</div>
-          <div class="cd-label-sub">▶ MUSIC BOT</div>
+  <div class="hero-main">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge" data-fade>
+          <span class="blink-dot"></span>DISCORD BOT · v1.0
         </div>
-        <div class="cd-hole">TRN</div>
+        <h1 class="hero-title" data-fade data-d="0.05">
+          <span class="glitch-wrap">
+            <span class="glitch-char" data-char="T">T</span><span>R</span><span>I</span><span>N</span><span>I</span><span class="glitch-char" data-char="Y">Y</span>
+            <span class="glitch-char" data-char="T">T</span><span>R</span><span class="glitch-char" data-char="I">I</span><span class="glitch-char" data-char="N">N</span><span>I</span><span class="glitch-char" data-char="T">T</span><span>Y</span>
+          </span>
+        </h1>
+        <p class="hero-sub" data-fade data-d="0.1">
+          Um bot de música para Discord construído do zero em Node.js —
+          YouTube, busca automática, fila, skip, pausa e histórico.
+        </p>
+        <div class="hero-btns" data-fade data-d="0.15">
+          <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary">
+            ▶ ADICIONAR AO SERVER
+          </a>
+          <a href="#commands" class="btn-outline">VER COMANDOS</a>
+        </div>
       </div>
-    </div>
 
-    <div class="cassette">
-      <div class="cassette-label-strip">
-        <div class="cassette-name">TRINITY</div>
-        <div class="waveform" id="waveform"></div>
-        <div class="cassette-side">SIDE A</div>
-      </div>
-      <div class="cassette-window">
-        <div class="spool"></div>
-        <div class="spool" style="animation-direction: reverse;"></div>
-      </div>
-      <div class="cassette-bottom">
-        <div class="cassette-notch"></div>
-        <div class="cassette-notch"></div>
-        <div class="cassette-notch"></div>
+      <!-- cassette column -->
+      <div class="hero-cassette" data-fade data-d="0.2">
+        <div class="disc-outer">
+          <div class="disc"></div>
+          <div class="disc-label">
+            <div class="disc-name">TRINITY</div>
+            <div class="disc-sub">NODE.JS · MUSIC</div>
+          </div>
+          <div class="disc-hole"></div>
+        </div>
+
+        <div class="cassette">
+          <div class="cas-strip">
+            <span class="cas-name">TRINITY</span>
+            <div class="cas-eq" id="casEq"></div>
+            <span class="cas-side">SIDE A</span>
+          </div>
+          <div class="cas-window">
+            <div class="spool"></div>
+            <div class="spool" style="animation-direction:reverse"></div>
+          </div>
+          <div class="cas-bottom"><i></i><i></i><i></i></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
+<!-- ===== COMMANDS ===== -->
+<div class="sep"><span></span></div>
 <section id="commands">
-  <div class="section-header">
-    <div class="section-number">01</div>
-    <div>
-      <div class="section-title">LISTA DE <em>COMANDOS</em></div>
-    </div>
-  </div>
-
-  <div class="commands-grid">
-
-    <div class="cmd-card">
-      <div class="cmd-name">/play</div>
-      <div class="cmd-desc">Toca uma música por URL do YouTube ou nome da faixa (busca automática via YouTube Data API v3).</div>
-      <span class="cmd-tag tag-url">YouTube URL</span>
-      <span class="cmd-tag tag-search">Busca por nome</span>
+  <div class="container">
+    <div class="sec-head" data-fade>
+      <div class="sec-tag"><span class="sec-num">01</span> MÚSICA</div>
+      <h2 class="sec-title">LISTA DE <em>COMANDOS</em></h2>
     </div>
 
-    <div class="cmd-card">
-      <div class="cmd-name">/skip</div>
-      <div class="cmd-desc">Pula a música atual e passa para a próxima na fila automaticamente. Se não houver próxima, o bot para.</div>
-      <span class="cmd-tag tag-ctrl">Controle de fila</span>
+    <!-- Music commands -->
+    <div class="cmd-subhead" data-fade>
+      <span class="sub-tag"><span class="sub-num">A</span> MÚSICA</span>
     </div>
 
-    <div class="cmd-card">
-      <div class="cmd-name">/previous</div>
-      <div class="cmd-desc">Volta para a última música tocada. Funciona mesmo após /stop graças ao estado persistente salvo em state.js.</div>
-      <span class="cmd-tag tag-ctrl">Histórico</span>
+    <div class="cmd-grid">
+      <div class="cmd" data-fade data-d="0.05">
+        <div class="cmd-badge">URL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-play"></div>
+          <span class="cmd-name">/play</span>
+        </div>
+        <div class="cmd-desc">Toca por URL do YouTube ou busca automática via YouTube Data API v3.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.1">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-skip"></div>
+          <span class="cmd-name">/skip</span>
+        </div>
+        <div class="cmd-desc">Pula para a próxima música. Fila vazia — bot para e sai do canal.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.15">
+        <div class="cmd-badge ctrl">HIST</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-prev"></div>
+          <span class="cmd-name">/previous</span>
+        </div>
+        <div class="cmd-desc">Volta para a anterior. Funciona após /stop graças ao estado persistente.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.2">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-pause"></div>
+          <span class="cmd-name">/pause</span>
+        </div>
+        <div class="cmd-desc">Pausa sem sair do canal. Estado da fila preservado.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.25">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-resume"></div>
+          <span class="cmd-name">/resume</span>
+        </div>
+        <div class="cmd-desc">Retoma de onde parou. Só funciona se estiver em pausa.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.3">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-stop"></div>
+          <span class="cmd-name">/stop</span>
+        </div>
+        <div class="cmd-desc">Para, limpa fila, sai do canal. Última música fica salva no estado.</div>
+      </div>
     </div>
 
-    <div class="cmd-card">
-      <div class="cmd-name">/pause</div>
-      <div class="cmd-desc">Pausa a reprodução atual sem sair do canal de voz. O estado da fila é preservado.</div>
-      <span class="cmd-tag tag-ctrl">Controle</span>
+    <!-- Moderation commands -->
+    <div class="cmd-subhead" data-fade style="margin-top:3rem">
+      <span class="sub-tag mod"><span class="sub-num">B</span> MODERAÇÃO</span>
     </div>
 
-    <div class="cmd-card">
-      <div class="cmd-name">/resume</div>
-      <div class="cmd-desc">Retoma a música pausada de onde parou. Só funciona se o bot estiver em estado de pausa.</div>
-      <span class="cmd-tag tag-ctrl">Controle</span>
+    <div class="cmd-grid">
+      <div class="cmd" data-fade data-d="0.05">
+        <div class="cmd-badge mod">MOD</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-kick"></div>
+          <span class="cmd-name">/kick</span>
+        </div>
+        <div class="cmd-desc">Remove o usuário do servidor. Requer permissão de Kick Members.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.1">
+        <div class="cmd-badge mod">MOD</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-ban"></div>
+          <span class="cmd-name">/ban</span>
+        </div>
+        <div class="cmd-desc">Bane permanentemente do servidor. Suporte a motivo e delete-messages.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.15">
+        <div class="cmd-badge voice">VOICE</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-mute"></div>
+          <span class="cmd-name">/mute</span>
+        </div>
+        <div class="cmd-desc">Cala o usuário no canal de voz. Suporte a timeout no servidor.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.2">
+        <div class="cmd-badge voice">VOICE</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-unmute"></div>
+          <span class="cmd-name">/unmute</span>
+        </div>
+        <div class="cmd-desc">Libera o silêncio do usuário no canal de voz.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.25">
+        <div class="cmd-badge warning">WARN</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-warn"></div>
+          <span class="cmd-name">/warn</span>
+        </div>
+        <div class="cmd-desc">Adiciona um aviso ao registro do usuário com motivo.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.3">
+        <div class="cmd-badge warning">WARN</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-viewwarn"></div>
+          <span class="cmd-name">/viewwarn</span>
+        </div>
+        <div class="cmd-desc">Lista os avisos de um usuário com data, motivo e moderador.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.35">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-clear"></div>
+          <span class="cmd-name">/clear</span>
+        </div>
+        <div class="cmd-desc">Limpa de 1 a 100 mensagens de um canal. Filtra por usuário se quiser.</div>
+      </div>
+      <div class="cmd" data-fade data-d="0.4">
+        <div class="cmd-badge ctrl">CTRL</div>
+        <div class="cmd-hdr">
+          <div class="cmd-icon ic-unban"></div>
+          <span class="cmd-name">/unban</span>
+        </div>
+        <div class="cmd-desc">Remove o ban de um usuário. Funciona com username ou ID.</div>
+      </div>
     </div>
-
-    <div class="cmd-card">
-      <div class="cmd-name">/stop</div>
-      <div class="cmd-desc">Para a reprodução, limpa a fila e faz o bot sair do canal de voz. A última música fica salva no estado.</div>
-      <span class="cmd-tag tag-ctrl">Controle</span>
-    </div>
-
   </div>
 </section>
 
-<div class="divider"></div>
-
+<!-- ===== DEMO ===== -->
+<div class="sep sep-alt"><span></span></div>
 <section id="demo">
-  <div class="section-header">
-    <div class="section-number">02</div>
-    <div>
-      <div class="section-title">BOT EM <em>AÇÃO</em></div>
+  <div class="container">
+    <div class="sec-head" data-fade>
+      <div class="sec-tag"><span class="sec-num">02</span> PREVIEW</div>
+      <h2 class="sec-title">BOT EM <em>AÇÃO</em></h2>
     </div>
-  </div>
 
-  <div class="demo-terminal">
-    <div class="terminal-bar">
-      <div class="terminal-dots">
-        <div class="dot dot-red"></div>
-        <div class="dot dot-yellow"></div>
-        <div class="dot dot-green"></div>
+    <div class="terminal" data-fade data-d="0.08">
+      <div class="term-bar">
+        <div class="term-dots"><i></i><i></i><i></i></div>
+        <span class="term-t"># geral</span>
       </div>
-      <div class="terminal-title"># geral — trinity-bot-demo</div>
-    </div>
-    <div class="terminal-body">
+      <div class="term-body">
 
-      <div class="chat-msg">
-        <div class="avatar avatar-user">E</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:14</div>
-          <div class="msg-text msg-command">/play Daft Punk — Get Lucky</div>
+        <div class="msg user" data-msg="0">
+          <div class="av av-u">E</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-uu">enzoka27</span><span class="msg-s">·</span><span class="msg-tm">22:14</span></div>
+            <div class="msg-t cmd-text">/play Daft Punk — Get Lucky</div>
+          </div>
         </div>
-      </div>
 
-      <div class="chat-msg">
-        <div class="avatar avatar-bot">T</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:14</div>
-          <div class="msg-text">
-            <div class="msg-embed">
-              <div class="embed-title">▶ Tocando agora</div>
-              <div class="embed-text"><strong style="color:#f0ede8;">Daft Punk — Get Lucky (feat. Pharrell Williams)</strong></div>
-              <div class="embed-text" style="margin-top:4px;">Canal: 🎧 geral · Duração: 6:09</div>
-              <div class="embed-bar">
-                <div class="progress-track"><div class="progress-fill"></div></div>
-                <div class="progress-time">2:18 / 6:09</div>
-              </div>
+        <div class="msg bot" data-msg="1">
+          <div class="av av-b">T</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-b">Trinity</span><span class="bot-tag">BOT</span><span class="msg-s">·</span><span class="msg-tm">22:14</span></div>
+            <div class="emp" style="border-color:var(--cyan)">
+              <div class="emp-t" style="color:var(--cyan)">▶ Tocando agora</div>
+              <div class="emp-s">Daft Punk — Get Lucky (feat. Pharrell Williams)</div>
+              <div class="emp-d">Canal: # geral · Duração: 6:09</div>
+              <div class="emp-bar"><div class="emp-fill"></div><span class="emp-time">2:18 / 6:09</span></div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="chat-msg">
-        <div class="avatar avatar-user">E</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:17</div>
-          <div class="msg-text msg-command">/skip</div>
+        <div class="msg user" data-msg="2">
+          <div class="av av-u">E</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-uu">enzoka27</span><span class="msg-s">·</span><span class="msg-tm">22:17</span></div>
+            <div class="msg-t cmd-text">/skip</div>
+          </div>
         </div>
-      </div>
 
-      <div class="chat-msg">
-        <div class="avatar avatar-bot">T</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:17</div>
-          <div class="msg-text">
-            <div class="msg-embed">
-              <div class="embed-title">⏭ Pulado · Fila vazia</div>
-              <div class="embed-text">Nenhuma música na fila. Use /play para adicionar.</div>
+        <div class="msg bot" data-msg="3">
+          <div class="av av-b">T</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-b">Trinity</span><span class="bot-tag">BOT</span><span class="msg-s">·</span><span class="msg-tm">22:17</span></div>
+            <div class="emp">
+              <div class="emp-t muted">⏭ Pulado · Fila vazia</div>
+              <div class="emp-d">Nenhuma música na fila. Use <code>/play</code> para adicionar.</div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="chat-msg">
-        <div class="avatar avatar-user">E</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-user">enzoka27</span> — hoje às 22:18</div>
-          <div class="msg-text msg-command">/previous</div>
+        <div class="msg user" data-msg="4">
+          <div class="av av-u">E</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-uu">enzoka27</span><span class="msg-s">·</span><span class="msg-tm">22:18</span></div>
+            <div class="msg-t cmd-text">/previous</div>
+          </div>
         </div>
-      </div>
 
-      <div class="chat-msg">
-        <div class="avatar avatar-bot">T</div>
-        <div class="msg-content">
-          <div class="msg-name"><span class="u-bot">Trinity</span> <span style="font-size:0.65rem;background:#5865f2;color:#fff;padding:0.05rem 0.3rem;border-radius:2px;">BOT</span> — hoje às 22:18</div>
-          <div class="msg-text">
-            <div class="msg-embed" style="border-color: var(--magenta);">
-              <div class="embed-title" style="color: var(--magenta);">◄ Voltando para última música</div>
-              <div class="embed-text"><strong style="color:#f0ede8;">Daft Punk — Get Lucky (feat. Pharrell Williams)</strong></div>
+        <div class="msg bot" data-msg="5">
+          <div class="av av-b">T</div>
+          <div class="msg-r">
+            <div class="msg-m"><span class="msg-b">Trinity</span><span class="bot-tag">BOT</span><span class="msg-s">·</span><span class="msg-tm">22:18</span></div>
+            <div class="emp" style="border-color:var(--mg)">
+              <div class="emp-t" style="color:var(--mg)">◄ Voltando para última</div>
+              <div class="emp-s">Daft Punk — Get Lucky (feat. Pharrell Williams)</div>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
+<!-- ===== INSTALL ===== -->
+<div class="sep"><span></span></div>
 <section id="install">
-  <div class="section-header">
-    <div class="section-number">03</div>
-    <div>
-      <div class="section-title">COMO <em>INSTALAR</em></div>
+  <div class="container">
+    <div class="sec-head" data-fade>
+      <div class="sec-tag"><span class="sec-num">03</span> INSTALAR</div>
+      <h2 class="sec-title">COMO <em>INSTALAR</em></h2>
     </div>
-  </div>
 
-  <div style="background:var(--surface);border:1px solid var(--cyan-dark);padding:1.5rem 2rem;margin-bottom:3rem;max-width:720px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
-    <div>
-      <div style="font-family:'VT323',monospace;font-size:1.3rem;color:var(--cyan);letter-spacing:0.1em;margin-bottom:0.3rem;">▶ ADICIONAR DIRETO AO SEU SERVIDOR</div>
-      <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Clique no botão para adicionar o Trinity ao seu servidor Discord com as permissões necessárias já configuradas.</div>
+    <div class="inst-cta" data-fade data-d="0.06">
+      <div class="inst-info">
+        <div class="inst-label">ADICIONAR DIRETO AO SERVIDOR</div>
+        <div class="inst-desc">Permissões pré-configuradas — clique para adicionar.</div>
+      </div>
+      <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary">+ ADICIONAR AO DISCORD</a>
     </div>
-    <a href="https://discord.com/oauth2/authorize?client_id=1480775935648333988&permissions=2582768710&integration_type=0&scope=bot+applications.commands" target="_blank" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">+ ADICIONAR AO DISCORD</a>
-  </div>
 
-  <div style="font-family:'VT323',monospace;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-bottom:2rem;">// OU RODE LOCALMENTE</div>
+    <div class="inst-alt-tag" data-fade data-d="0.1">// OU RODE LOCALMENTE</div>
 
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-num">01</div>
-      <div>
-        <div class="step-title">CLONE O REPOSITÓRIO</div>
-        <div class="step-desc">Faça o clone do projeto e entre na pasta.</div>
-        <div class="code-block">git clone https://github.com/enzoka27/discord_bot && cd discord_bot</div>
+    <div class="inst-steps">
+      <div class="inst-row" data-fade data-d="0.14">
+        <div class="inst-num">01</div>
+        <div class="inst-body">
+          <div class="inst-hdr">CLONE O REPOSITÓRIO</div>
+          <div class="inst-desc2">Faça o clone e entre na pasta.</div>
+          <div class="inst-code"><span class="$">$</span>git clone https://github.com/enzoka27/discord_bot && cd discord_bot</div>
+        </div>
+      </div>
+      <div class="inst-row" data-fade data-d="0.18">
+        <div class="inst-num">02</div>
+        <div class="inst-body">
+          <div class="inst-hdr">INSTALE AS DEPENDÊNCIAS</div>
+          <div class="inst-desc2">Node.js 18+ requerido.</div>
+          <div class="inst-code"><span class="$">$</span>npm install</div>
+        </div>
+      </div>
+      <div class="inst-row" data-fade data-d="0.22">
+        <div class="inst-num">03</div>
+        <div class="inst-body">
+          <div class="inst-hdr">REGISTRE OS SLASH COMMANDS</div>
+          <div class="inst-desc2">Só precisa rodar uma vez.</div>
+          <div class="inst-code"><span class="$">$</span>node src/deploy-commands.js</div>
+        </div>
+      </div>
+      <div class="inst-row" data-fade data-d="0.26">
+        <div class="inst-num">04</div>
+        <div class="inst-body">
+          <div class="inst-hdr">INICIE O BOT</div>
+          <div class="inst-desc2">Conecta e fica pronto para usar.</div>
+          <div class="inst-code"><span class="$">$</span>node src/index.js</div>
+        </div>
       </div>
     </div>
-
-    <div class="step">
-      <div class="step-num">02</div>
-      <div>
-        <div class="step-title">INSTALE AS DEPENDÊNCIAS</div>
-        <div class="step-desc">Node.js 18+ requerido. Instala discord.js, distube, yt-dlp e demais pacotes.</div>
-        <div class="code-block">npm install</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">03</div>
-      <div>
-        <div class="step-title">REGISTRE OS SLASH COMMANDS</div>
-        <div class="step-desc">Deploya os comandos para o Discord. Só precisa rodar uma vez (ou quando adicionar novos comandos).</div>
-        <div class="code-block">node src/deploy-commands.js</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">04</div>
-      <div>
-        <div class="step-title">INICIE O BOT</div>
-        <div class="step-desc">O bot vai conectar ao Discord e ficar pronto para receber comandos no seu servidor.</div>
-        <div class="code-block">node src/index.js</div>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<div class="divider"></div>
-
+<!-- ===== ABOUT ===== -->
+<div class="sep sep-alt"><span></span></div>
 <section id="about">
-  <div class="section-header">
-    <div class="section-number">04</div>
-    <div>
-      <div class="section-title">SOBRE O <em>PROJETO</em></div>
-    </div>
-  </div>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <p>
-        <strong>Trinity</strong> é um bot de música para Discord construído do zero em Node.js,
-        desenvolvido com foco em aprendizado — cada linha de código entendida antes de ser escrita.
-      </p>
-      <p>
-        O projeto passou por várias evoluções técnicas: de <strong>ytdl-core</strong> para <strong>play-dl</strong>
-        e finalmente para <strong>DisTube + yt-dlp</strong>, a solução estável para autenticação com o YouTube.
-      </p>
-      <p>
-        Suporte a YouTube (URL e busca via YouTube Data API v3).
-        Arquitetura orientada a eventos com discord.js v14 e carregamento automático de comandos por subpastas.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-pill">Node.js</span>
-        <span class="tech-pill">discord.js v14</span>
-        <span class="tech-pill">DisTube v5</span>
-        <span class="tech-pill">yt-dlp</span>
-        <span class="tech-pill">ffmpeg-static</span>
-        <span class="tech-pill">opusscript</span>
-        <span class="tech-pill">axios</span>
-        <span class="tech-pill">dotenv</span>
-      </div>
+  <div class="container">
+    <div class="sec-head" data-fade>
+      <div class="sec-tag"><span class="sec-num">04</span> SOBRE</div>
+      <h2 class="sec-title">SOBRE O <em>PROJETO</em></h2>
     </div>
 
-    <div class="stats-panel">
-      <div class="stat-box">
-        <div class="stat-num">6</div>
-        <div class="stat-label">COMANDOS</div>
+    <div class="about-row">
+      <div class="about-text" data-fade>
+        <p><strong>Trinity</strong> é um bot de música para Discord construído do zero em Node.js,
+        desenvolvido com foco em aprendizado — cada linha de código entendida antes de ser escrita.</p>
+        <p>Evoluiu de <em>ytdl-core</em> para <em>play-dl</em> e finalmente para <em>DisTube + yt-dlp</em>, a solução estável para autenticação com o YouTube.</p>
+        <p>Suporte a YouTube (URL e busca via YouTube Data API v3). Arquitetura orientada a eventos com discord.js v14 e carregamento automático de comandos por subpasta — tanto os de música quanto os de moderação (kick, ban, mute, warn, clear, unban, viewwarn).</p>
+        <div class="tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">discord.js v14</span>
+          <span class="tag">DisTube v5</span>
+          <span class="tag">yt-dlp</span>
+          <span class="tag">ffmpeg-static</span>
+          <span class="tag">opusscript</span>
+          <span class="tag">axios</span>
+          <span class="tag">dotenv</span>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">2</div>
-        <div class="stat-label">FONTES</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">OPEN SOURCE</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">JS</div>
-        <div class="stat-label">LINGUAGEM</div>
+      <div class="about-stats" data-fade data-d="0.1">
+        <div class="stat">
+          <div class="stat-val count" data-to="14">0</div>
+          <div class="stat-lbl">COMANDOS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val count" data-to="2">0</div>
+          <div class="stat-lbl">CATEGORIAS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val count" data-to="100">0</div>
+          <div class="stat-lbl">% OPEN SOURCE</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val mono">JS</div>
+          <div class="stat-lbl">LINGUAGEM</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">TRINITY</div>
-  <div class="footer-text">
-    Feito por <a href="https://github.com/enzoka27" target="_blank">enzoka27</a> ·
-    <a href="https://github.com/enzoka27/discord_bot" target="_blank">Ver no GitHub ↗</a>
+  <div class="ft-inner">
+    <div class="ft-logo">TRINITY</div>
+    <div class="ft-links">
+      <a href="https://github.com/enzoka27" target="_blank">enzoka27</a>
+      <span class="ft-dot"></span>
+      <a href="https://github.com/enzoka27/discord_bot" target="_blank">GitHub ↗</a>
+    </div>
+    <div class="ft-copy">MIT · 2024</div>
   </div>
-  <div class="footer-text">MIT LICENSE · 2024</div>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>
