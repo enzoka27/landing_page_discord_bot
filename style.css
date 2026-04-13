@@ -78,7 +78,7 @@ header{
 header.glow{border-color:rgba(0,245,228,.06);background:rgba(10,10,14,.85)}
 .header-inner{max-width:var(--mw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 2.5rem}
 
-.logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem;letter-spacing:.3em;color:var(--wh);transition:color .2s}
+.logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--wh);transition:color .2s}
 .logo-accent{color:var(--cy);text-shadow:0 0 12px rgba(0,245,228,.4)}
 .logo:hover{color:var(--cy)}
 

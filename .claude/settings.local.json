@@ -1,18 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:github.com)",
-      "Bash(test -f \"$USERPROFILE/.claude/skills/design/SKILL.md\")",
-      "Bash(test -f \"$USERPROFILE/.claude/skills/ui-styling/SKILL.md\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design/SKILL.md\" -o \"C:\\\\Users\\\\thiag\\\\.claude\\\\skills\\\\design\\\\SKILL.md\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/ui-styling/SKILL.md\" -o \"C:\\\\Users\\\\thiag\\\\.claude\\\\skills\\\\ui-styling\\\\SKILL.md\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design/references/design-routing.md\" -o \"C:\\\\Users\\\\thiag\\\\.claude\\\\skills\\\\design\\\\references\\\\design-routing.md\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/data/slide-strategies.csv\" -o \"$USERPROFILE/.claude/skills/design-system/data/slide-strategies.csv\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/data/slide-layouts.csv\" -o \"$USERPROFILE/.claude/skills/design-system/data/slide-layouts.csv\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/data/slide-typography.csv\" -o \"$USERPROFILE/.claude/skills/design-system/data/slide-typography.csv\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/data/slide-copy.csv\" -o \"$USERPROFILE/.claude/skills/design-system/data/slide-copy.csv\")",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/data/slide-backgrounds.csv\" -o \"$USERPROFILE/.claude/skills/design-system/data/slide-backgrounds.csv\")",
-      "Bash(python3:*)"
+      "Bash(dir:*)",
+      "Bash(cmd /c dir)"
     ]
   }
 }
